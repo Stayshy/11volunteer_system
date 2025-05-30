@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система учёта волонтёрской активности</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 80px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        .nav-tabs .nav-link {
+            color: #007bff;
+            font-weight: 600;
+            border-radius: 8px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        .nav-tabs .nav-link.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .nav-tabs .nav-link:hover {
+            background: #e9f0ff;
+            color: #0056b3;
+        }
+        .btn-primary, .btn-success, .btn-warning, .btn-danger, .btn-info {
+            border-radius: 8px;
+            padding: 8px 16px;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-warning:hover, .btn-danger:hover, .btn-info:hover {
+            transform: scale(1.05);
+            filter: brightness(110%);
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.2s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0,123,255,0.3);
+        }
+        #calendar {
+            max-width: 100%;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        #chatMessages {
+            height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .chat-message {
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 14px;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .bot-message {
+            background: #e9ecef;
+            color: #333;
+            margin-right: auto;
+        }
+        .loading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #007bff;
+        }
+        .spinner {
+            border: 2px solid #007bff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 576px) {
+            #chatbot { width: 90%; }
+            .container { padding: 15px; }
+            .card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="text-center mb-4 fw-bold">Система учёта волонтёрской активности</h1>
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item"><a class="nav-link active" href="#events" data-bs-toggle="tab"><i class="bi bi-calendar-event"></i> Мероприятия</a></li>
+        <li class="nav-item"><a class="nav-link" href="#volunteers" data-bs-toggle="tab"><i class="bi bi-people"></i> Волонтёры</a></li>
+        <li class="nav-item"><a class="nav-link" href="#participations" data-bs-toggle="tab"><i class="bi bi-check-circle"></i> Регистрация</a></li>
+        <li class="nav-item"><a class="nav-link" href="#reports" data-bs-toggle="tab"><i class="bi bi-file-text"></i> Отчёты</a></li>
+        <li class="nav-item"><a class="nav-link" href="#calendar" data-bs-toggle="tab"><i class="bi bi-calendar"></i> Календарь</a></li>
+        <li class="nav-item"><a class="nav-link" href="#stats" data-bs-toggle="tab"><i class="bi bi-bar-chart"></i> Статистика</a></li>
+        <li class="nav-item"><a class="nav-link" href="#top-volunteers" data-bs-toggle="tab"><i class="bi bi-trophy"></i> Топ волонтёров</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Мероприятия -->
+        <div class="tab-pane fade show active" id="events">
+            <div class="card p-4 mb-4">
+                <h2 class="fw-semibold">Мероприятия</h2>
+                <div id="eventsList" class="mb-3"></div>
+                <h3 class="fw-semibold">Добавить мероприятие</h3>
+                <form id="eventForm" class="row g-3">
+                    <div class="col-md-6"><input type="text" class="form-control" id="eventTitle" placeholder="Название" required></div>
+                    <div class="col-md-6"><input type="text" class="form-control" id="eventDescription" placeholder="Описание"></div>
+                    <div class="col-md-6"><input type="datetime-local" class="form-control" id="eventDate" required></div>
+                    <div class="col-md-6"><input type="number" class="form-control" id="maxParticipants" placeholder="Макс. участников" required></div>
+                    <div class="col-md-6"><input type="number" class="form-control" id="organizerId" placeholder="ID организатора" required></div>
+                    <div class="col-12"><button type="submit" class="btn btn-primary">Добавить</button></div>
+                </form>
+                <button class="btn btn-success mt-3" onclick="sendNotifications()">Отправить уведомления</button>
+            </div>
+        </div>
+
+        <!-- Волонтёры -->
+        <div class="tab-pane fade" id="volunteers">
+            <div class="card p-4 mb-4">
+                <h2 class="fw-semibold">Волонтёры</h2>
+                <div id="volunteersList" class="mb-3"></div>
+                <h3 class="fw-semibold">Добавить волонтёра</h3>
+                <form id="volunteerForm" class="row g-3">
+                    <div class="col-md-4"><input type="text" class="form-control" id="volunteerName" placeholder="Имя" required></div>
+                    <div class="col-md-4"><input type="email" class="form-control" id="volunteerEmail" placeholder="Email" required></div>
+                    <div class="col-md-4"><input type="text" class="form-control" id="volunteerPhone" placeholder="Телефон"></div>
+                    <div class="col-12"><button type="submit" class="btn btn-primary">Добавить</button></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Регистрация -->
+        <div class="tab-pane fade" id="participations">
+            <div class="card p-4 mb-4">
+                <h2 class="fw-semibold">Регистрация на мероприятие</h2>
+                <form id="participationForm" class="row g-3">
+                    <div class="col-md-6">
+                        <select class="form-select" id="volunteerId" required>
+                            <option value="">Выберите волонтёра</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="eventId" required>
+                            <option value="">Выберите мероприятие</option>
+                        </select>
+                    </div>
+                    <div class="col-12"><button type="submit" class="btn btn-primary">Зарегистрироваться</button></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Отчёты -->
+        <div class="tab-pane fade" id="reports">
+            <div class="card p-4 mb-4">
+                <h2 class="fw-semibold">Отчёты</h2>
+                <div id="reportsList" class="mb-3"></div>
+                <h3 class="fw-semibold">Добавить отчёт</h3>
+                <form id="reportForm" class="row g-3">
+                    <div class="col-md-6">
+                        <select class="form-select" id="reportVolunteerId" required>
+                            <option value="">Выберите волонтёра</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="reportEventId" required>
+                            <option value="">Выберите мероприятие</option>
+                        </select>
+                    </div>
+                    <div class="col-12"><input type="text" class="form-control" id="reportDescription" placeholder="Описание"></div>
+                    <div class="col-12"><input type="number" class="form-control" id="hoursWorked" placeholder="Часы работы" required></div>
+                    <div class="col-12"><button type="submit" class="btn btn-primary">Добавить</button></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Календарь -->
+        <div class="tab-pane fade" id="calendar">
+            <div class="card p-4 mb-4">
+                <h2 class="fw-semibold">Календарь мероприятий</h2>
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <div class="tab-pane fade" id="stats">
+            <div class="card p-4 mb-4">
+                <h2 class="fw-semibold">Статистика волонтёра</h2>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="volunteerIdStats">
+                        <option value="">Выберите волонтёра</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="fetchStats()">Посмотреть</button>
+                </div>
+                <div id="stats" class="mb-3"></div>
+                <h3 class="fw-semibold">Сгенерировать грамоту</h3>
+                <form id="certificateForm" class="row g-3">
+                    <div class="col-md-6">
+                        <select class="form-select" id="certificateVolunteerId" required>
+                            <option value="">Выберите волонтёра</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="certificateEventId" required>
+                            <option value="">Выберите мероприятие</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success">Скачать грамоту</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Топ волонтёров -->
+        <div class="tab-pane fade" id="top-volunteers">
+            <div class="card p-4 mb-4">
+                <h2 class="fw-semibold">Топ-5 активных волонтёров</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Место</th>
+                            <th>Имя</th>
+                            <th>Отработано часов</th>
+                        </tr>
+                        </thead>
+                        <tbody id="topVolunteersList"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Чат-бот -->
+    <div id="chatbot" class="card p-3">
+        <h5 class="text-center fw-bold"><i class="bi bi-robot"></i> DeepThinker</h5>
+        <div id="chatMessages"></div>
+        <div class="input-group">
+            <input type="text" class="form-control" id="chatInput" placeholder="Спросите DeepThinker...">
+            <button class="btn btn-primary" onclick="sendChatMessage()"><i class="bi bi-send"></i></button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script>
+    // Мероприятия
+    async function fetchEvents() {
+        try {
+            const response = await fetch('/api/events');
+            if (!response.ok) throw new Error('Ошибка загрузки мероприятий');
+            const events = await response.json();
+            const eventsList = document.getElementById('eventsList');
+            eventsList.innerHTML = events.map(event => `
+                <div class="card mb-2 p-3">
+                    <strong>${event.title}</strong><br>
+                    Описание: ${event.description || 'Нет'}<br>
+                    Дата: ${new Date(event.date).toLocaleString('ru-RU')}<br>
+                    Макс. участников: ${event.max_participants}<br>
+                    Организатор ID: ${event.organizer_id}
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-warning me-1" onclick="updateEvent(${event.id})">Обновить</button>
+                        <button class="btn btn-sm btn-danger me-1" onclick="deleteEvent(${event.id})">Удалить</button>
+                        <button class="btn btn-sm btn-info" onclick="notifyEvent(${event.id})">Уведомить</button>
+                    </div>
+                </div>
+            `).join('');
+            updateCalendar(events);
+            loadEventsSelect('eventId');
+            loadEventsSelect('reportEventId');
+            loadEventsSelect('certificateEventId');
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+    }
+
+    document.getElementById('eventForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('eventTitle').value;
+        const description = document.getElementById('eventDescription').value;
+        const date = document.getElementById('eventDate').value;
+        const max_participants = document.getElementById('maxParticipants').value;
+        const organizer_id = document.getElementById('organizerId').value;
+        try {
+            const response = await fetch('/api/events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, description, date, max_participants, organizer_id })
+            });
+            if (!response.ok) throw new Error('Ошибка добавления мероприятия');
+            document.getElementById('eventForm').reset();
+            fetchEvents();
+        } catch (error) {
+            console.error('Error adding event:', error);
+            alert('Ошибка при добавлении мероприятия');
+        }
+    });
+
+    async function updateEvent(id) {
+        const title = prompt('Новое название:');
+        const description = prompt('Новое описание:');
+        const date = prompt('Новая дата (гггг-мм-ддTчч:мм):');
+        const max_participants = prompt('Макс. участников:');
+        const organizer_id = prompt('ID организатора:');
+        if (title && date && max_participants && organizer_id) {
+            try {
+                const response = await fetch(`/api/events/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, description, date, max_participants, organizer_id })
+                });
+                if (!response.ok) throw new Error('Ошибка обновления мероприятия');
+                fetchEvents();
+            } catch (error) {
+                console.error('Error updating event:', error);
+                alert('Ошибка при обновлении мероприятия');
+            }
+        }
+    }
+
+    async function deleteEvent(id) {
+        if (confirm('Удалить мероприятие?')) {
+            try {
+                const response = await fetch(`/api/events/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Ошибка удаления мероприятия');
+                fetchEvents();
+            } catch (error) {
+                console.error('Error deleting event:', error);
+                alert('Ошибка при удалении мероприятия');
+            }
+        }
+    }
+
+    async function notifyEvent(eventId) {
+        try {
+            const response = await fetch('/api/notify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event_id: eventId })
+            });
+            if (!response.ok) throw new Error('Ошибка отправки уведомлений');
+            const result = await response.json();
+            alert(`Отправлено ${result.count} уведомлений для мероприятия`);
+        } catch (error) {
+            console.error('Error sending notifications:', error);
+            alert('Ошибка при отправке уведомлений');
+        }
+    }
+
+    // Волонтёры
+    async function fetchVolunteers() {
+        try {
+            const response = await fetch('/api/volunteers');
+            if (!response.ok) throw new Error('Ошибка загрузки волонтёров');
+            const volunteers = await response.json();
+            document.getElementById('volunteersList').innerHTML = volunteers.map(volunteer => `
+                <div class="card mb-2 p-3">
+                    <strong>${volunteer.name}</strong><br>
+                    Email: ${volunteer.email}<br>
+                    Телефон: ${volunteer.phone || 'Не указан'}
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-warning me-1" onclick="updateVolunteer(${volunteer.id})">Обновить</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteVolunteer(${volunteer.id})">Удалить</button>
+                    </div>
+                </div>
+            `).join('');
+            loadVolunteersSelect('volunteerId');
+            loadVolunteersSelect('reportVolunteerId');
+            loadVolunteersSelect('volunteerIdStats');
+            loadVolunteersSelect('certificateVolunteerId');
+        } catch (error) {
+            console.error('Error fetching volunteers:', error);
+        }
+    }
+
+    document.getElementById('volunteerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('volunteerName').value;
+        const email = document.getElementById('volunteerEmail').value;
+        const phone = document.getElementById('volunteerPhone').value;
+        try {
+            const response = await fetch('/api/volunteers', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, phone })
+            });
+            if (!response.ok) throw new Error('Ошибка добавления волонтёра');
+            document.getElementById('volunteerForm').reset();
+            fetchVolunteers();
+        } catch (error) {
+            console.error('Error adding volunteer:', error);
+            alert('Ошибка при добавлении волонтёра');
+        }
+    });
+
+    async function updateVolunteer(id) {
+        const name = prompt('Новое имя:');
+        const email = prompt('Новый email:');
+        const phone = prompt('Новый телефон:');
+        if (name && email) {
+            try {
+                const response = await fetch(`/api/volunteers/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone })
+                });
+                if (!response.ok) throw new Error('Ошибка обновления волонтёра');
+                fetchVolunteers();
+            } catch (error) {
+                console.error('Error updating volunteer:', error);
+                alert('Ошибка при обновлении волонтёра');
+            }
+        }
+    }
+
+    async function deleteVolunteer(id) {
+        if (confirm('Удалить волонтёра?')) {
+            try {
+                const response = await fetch(`/api/volunteers/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Ошибка удаления волонтёра');
+                fetchVolunteers();
+            } catch (error) {
+                console.error('Error deleting volunteer:', error);
+                alert('Ошибка при удалении волонтёра');
+            }
+        }
+    }
+
+    // Топ волонтёров
+    async function fetchTopVolunteers() {
+        try {
+            const response = await fetch('/api/top-volunteers');
+            if (!response.ok) throw new Error('Ошибка загрузки топ волонтёров');
+            const volunteers = await response.json();
+            const topVolunteersList = document.getElementById('topVolunteersList');
+            topVolunteersList.innerHTML = volunteers.map((volunteer, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${volunteer.name}</td>
+                    <td>${volunteer.total_hours}</td>
+                </tr>
+            `).join('');
+        } catch (error) {
+            console.error('Error fetching top volunteers:', error);
+            document.getElementById('topVolunteersList').innerHTML = `<tr><td colspan="3" class="text-danger">Ошибка загрузки данных</td></tr>`;
+        }
+    }
+
+    // Регистрация
+    async function loadVolunteersSelect(selectId) {
+        try {
+            const response = await fetch('/api/volunteers');
+            if (!response.ok) throw new Error('Ошибка загрузки волонтёров');
+            const volunteers = await response.json();
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Выберите волонтёра</option>' +
+                volunteers.map(v => `<option value="${v.id}">${v.name}</option>`).join('');
+        } catch (error) {
+            console.error('Error loading volunteers select:', error);
+        }
+    }
+
+    async function loadEventsSelect(selectId) {
+        try {
+            const response = await fetch('/api/events');
+            if (!response.ok) throw new Error('Ошибка загрузки мероприятий');
+            const events = await response.json();
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Выберите мероприятие</option>' +
+                events.map(e => `<option value="${e.id}">${e.title} (${new Date(e.date).toLocaleDateString('ru-RU')})</option>`).join('');
+        } catch (error) {
+            console.error('Error loading events select:', error);
+        }
+    }
+
+    document.getElementById('participationForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const volunteer_id = document.getElementById('volunteerId').value;
+        const event_id = document.getElementById('eventId').value;
+        try {
+            const response = await fetch('/api/participations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ volunteer_id, event_id })
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Ошибка регистрации');
+            }
+            alert('Регистрация успешна!');
+            document.getElementById('participationForm').reset();
+            loadVolunteersSelect('volunteerId');
+            loadEventsSelect('eventId');
+        } catch (error) {
+            console.error('Error registering participation:', error);
+            alert(error.message);
+        }
+    });
+
+    // Отчёты
+    async function fetchReports() {
+        try {
+            const response = await fetch('/api/reports');
+            if (!response.ok) throw new Error('Ошибка загрузки отчётов');
+            const reports = await response.json();
+            document.getElementById('reportsList').innerHTML = reports.map(report => `
+                <div class="card mb-2 p-3">
+                    Волонтёр ID: ${report.volunteer_id}<br>
+                    Мероприятие ID: ${report.event_id}<br>
+                    Описание: ${report.description || 'Нет'}<br>
+                    Часы: ${report.hours_worked}
+                </div>
+            `).join('');
+            loadEventsSelect('reportEventId');
+        } catch (error) {
+            console.error('Error fetching reports:', error);
+        }
+    }
+
+    document.getElementById('reportForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const volunteer_id = document.getElementById('reportVolunteerId').value;
+        const event_id = document.getElementById('reportEventId').value;
+        const description = document.getElementById('reportDescription').value;
+        const hours_worked = document.getElementById('hoursWorked').value;
+        try {
+            const response = await fetch('/api/reports', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ volunteer_id, event_id, description, hours_worked })
+            });
+            if (!response.ok) throw new Error('Ошибка добавления отчёта');
+            document.getElementById('reportForm').reset();
+            fetchReports();
+        } catch (error) {
+            console.error('Error adding report:', error);
+            alert('Ошибка при добавлении отчёта');
+        }
+    });
+
+    // Календарь
+    function updateCalendar(events) {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'ru',
+            height: 'auto',
+            events: events.map(event => ({
+                title: event.title,
+                start: new Date(event.date).toISOString(),
+                allDay: true
+            })),
+            eventTimeFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                meridiem: false
+            },
+            firstDay: 1,
+            buttonText: {
+                today: 'Сегодня',
+                month: 'Месяц',
+                week: 'Неделя',
+                day: 'День'
+            }
+        });
+        calendar.render();
+    }
+
+    // Статистика
+    async function fetchStats() {
+        const id = document.getElementById('volunteerIdStats').value;
+        if (!id) {
+            document.getElementById('stats').innerHTML = '<p class="text-danger">Выберите волонтёра</p>';
+            return;
+        }
+        try {
+            const response = await fetch(`/api/statistics/${id}`);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Ошибка загрузки статистики');
+            }
+            const stats = await response.json();
+            document.getElementById('stats').innerHTML = `
+                <div class="card p-3">
+                    <p><strong>Имя:</strong> ${stats.name || 'Не найдено'}</p>
+                    <p><strong>Мероприятий:</strong> ${stats.events_attended || 0}</p>
+                    <p><strong>Часов:</strong> ${stats.total_hours || 0}</p>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Error fetching stats:', error);
+            document.getElementById('stats').innerHTML = `<p class="text-danger">${error.message}</p>`;
+        }
+    }
+
+    // Грамоты
+    document.getElementById('certificateForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const volunteerId = document.getElementById('certificateVolunteerId').value;
+        const eventId = document.getElementById('certificateEventId').value;
+        if (!volunteerId || !eventId) {
+            alert('Выберите волонтёра и мероприятие');
+            return;
+        }
+        try {
+            const response = await fetch(`/api/certificate?volunteer_id=${volunteerId}&event_id=${eventId}`);
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Ошибка генерации грамоты');
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `certificate_${volunteerId}_${eventId}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error generating certificate:', error);
+            alert(error.message);
+        }
+    });
+
+    // Чат-бот
+    async function sendChatMessage() {
+        const message = document.getElementById('chatInput').value;
+        if (!message) return;
+        const chatMessages = document.getElementById('chatMessages');
+        chatMessages.innerHTML += `<div class="chat-message user-message">${message}</div>`;
+        chatMessages.innerHTML += `<div class="chat-message bot-message loading"><div class="spinner"></div> Думаю...</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            });
+            if (!response.ok) throw new Error('Ошибка связи с чат-ботом');
+            const data = await response.json();
+            chatMessages.removeChild(chatMessages.lastChild); // Удаляем спиннер
+            chatMessages.innerHTML += `<div class="chat-message bot-message">${data.response || data.message || 'Ошибка ответа'}</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        } catch (error) {
+            console.error('Error in chat:', error);
+            chatMessages.removeChild(chatMessages.lastChild);
+            chatMessages.innerHTML += `<div class="chat-message bot-message">Ошибка связи с сервером</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        document.getElementById('chatInput').value = '';
+    }
+
+    // Уведомления
+    async function sendNotifications() {
+        try {
+            const response = await fetch('/api/notify', { method: 'POST' });
+            if (!response.ok) throw new Error('Ошибка отправки уведомлений');
+            const result = await response.json();
+            alert(`Отправлено ${result.count} уведомлений`);
+        } catch (error) {
+            console.error('Error sending notifications:', error);
+            alert('Ошибка при отправке уведомлений');
+        }
+    }
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchEvents();
+        fetchVolunteers();
+        fetchReports();
+        fetchTopVolunteers();
+        loadEventsSelect('eventId');
+        loadEventsSelect('reportEventId');
+        loadEventsSelect('certificateEventId');
+    });
+</script>
+</body>
+</html>

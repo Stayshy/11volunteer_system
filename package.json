@@ -1,0 +1,24 @@
+{
+  "name": "volunteer-system",
+  "version": "1.0.0",
+  "description": "REST API для системы учета волонтерской активности",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Харитонова А.А.",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-fileupload": "^1.5.1",
+    "node-cron": "^4.0.7",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^7.0.3",
+    "pdfkit": "^0.17.1",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7f764d65-1a21-4f1b-a63b-6cab67950233" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="rector.php" />
+        <option value="tsconfig.json" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Stayshy&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Stayshy/volunteer_system.git&quot;,
+    &quot;accountId&quot;: &quot;8196fbae-44ed-4eaa-b386-91c47e903f89&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Controllers/certificateController.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/chatController.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/eventController.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/notificationController.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/participationController.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/reportController.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/volunteerController.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/config/db.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/models/eventModel.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/models/participationModel.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/models/reportModel.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/models/volunteerModel.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/routes/certificateRoutes.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/routes/chatRoutes.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/routes/eventRoutes.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/routes/notificationRoutes.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/routes/participationRoutes.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/routes/reportRoutes.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/routes/volunteerRoutes.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/utils/notifier.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
+    <include_path>
+      <path value="$PROJECT_DIR$" />
+    </include_path>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2wdyilCWDFZ0UkJupGi5wLSgsf9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/denwer-master/home/localhost/www/Новая папка",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\denwer-master\home\localhost\www\volunteer_system" />
+      <recent name="C:\denwer-master\home\localhost\www\volunteer_system\api" />
+      <recent name="C:\denwer-master\home\localhost\www" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13" />
+        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7f764d65-1a21-4f1b-a63b-6cab67950233" name="Changes" comment="" />
+      <created>1746385875055</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746385875055</updated>
+      <workItem from="1746385876092" duration="5493000" />
+      <workItem from="1746391499148" duration="748000" />
+      <workItem from="1746395520238" duration="1030000" />
+      <workItem from="1746424235301" duration="1334000" />
+      <workItem from="1746429187366" duration="8000" />
+      <workItem from="1746717074890" duration="7470000" />
+      <workItem from="1746796636081" duration="5042000" />
+      <workItem from="1746823454382" duration="9415000" />
+      <workItem from="1746878229447" duration="10874000" />
+      <workItem from="1746968430292" duration="5647000" />
+      <workItem from="1747070726876" duration="21000" />
+      <workItem from="1747103425134" duration="12637000" />
+      <workItem from="1747157780379" duration="17853000" />
+      <workItem from="1747192383320" duration="223000" />
+      <workItem from="1747231044790" duration="3967000" />
+      <workItem from="1747262377069" duration="14316000" />
+      <workItem from="1747282020128" duration="76000" />
+      <workItem from="1747318648933" duration="1361000" />
+      <workItem from="1747354523787" duration="209000" />
+      <workItem from="1747365503384" duration="65000" />
+      <workItem from="1748342743366" duration="3574000" />
+      <workItem from="1748408142005" duration="3874000" />
+      <workItem from="1748412602739" duration="5238000" />
+      <workItem from="1748430883487" duration="1060000" />
+      <workItem from="1748433482432" duration="13053000" />
+      <workItem from="1748454042832" duration="47000" />
+      <workItem from="1748569688267" duration="614000" />
+      <workItem from="1748577272675" duration="775000" />
+      <workItem from="1748585538990" duration="7227000" />
+    </task>
+    <task id="LOCAL-00001" summary="Шаблон">
+      <option name="closed" value="true" />
+      <created>1746717249676</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746717249676</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Вход выход и мы опять играем в зарегистр">
+      <option name="closed" value="true" />
+      <created>1746823275220</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746823275220</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Редактировать профиль починили, энжине старт, энжине работает, мероприятие создаются">
+      <option name="closed" value="true" />
+      <created>1746833960674</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746833960674</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Энжине портал, новости организатора и профиль энжине капут">
+      <option name="closed" value="true" />
+      <created>1746846529956</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746846529956</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Организатор профиль работат, поиск новостей, лента новостей">
+      <option name="closed" value="true" />
+      <created>1746887971512</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746887971512</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Грамота не работает">
+      <option name="closed" value="true" />
+      <created>1746907610137</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746907610137</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Грамота, медиа отображение информации о мероприятиях в календаре">
+      <option name="closed" value="true" />
+      <created>1747106345901</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1747106345902</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Дипсику и патапиим патапум дизайн">
+      <option name="closed" value="true" />
+      <created>1747169912196</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747169912196</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Готово">
+      <option name="closed" value="true" />
+      <created>1747277840746</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1747277840746</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Готово икс 2">
+      <option name="closed" value="true" />
+      <created>1747281698126</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1747281698126</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Что-то">
+      <option name="closed" value="true" />
+      <created>1748411930897</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1748411930897</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Шаблон" />
+    <MESSAGE value="Вход выход и мы опять играем в зарегистр" />
+    <MESSAGE value="Редактировать профиль починили, энжине старт, энжине работает, мероприятие создаются" />
+    <MESSAGE value="Энжине портал, новости организатора и профиль энжине капут" />
+    <MESSAGE value="Организатор профиль работат, поиск новостей, лента новостей" />
+    <MESSAGE value="Грамота не работает" />
+    <MESSAGE value="Грамота, медиа отображение информации о мероприятиях в календаре" />
+    <MESSAGE value="Дипсику и патапиим патапум дизайн" />
+    <MESSAGE value="Готово" />
+    <MESSAGE value="Готово икс 2" />
+    <MESSAGE value="Что-то" />
+    <MESSAGE value="Что-то 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Что-то 1" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
